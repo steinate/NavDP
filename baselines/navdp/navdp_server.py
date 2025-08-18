@@ -13,7 +13,7 @@ from PIL import Image, ImageDraw, ImageFont
 import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("--port",type=int,default=8888)
-parser.add_argument("--checkpoint",type=str,default="./checkpoints/navdp.ckpt")
+parser.add_argument("--checkpoint",type=str,default="/home/PJLAB/caiwenzhe/Desktop/navdp_bench/baselines/navdp/checkpoints/cross-waic-final4-125.ckpt")
 args = parser.parse_known_args()[0]
 
 app = Flask(__name__)
@@ -66,7 +66,7 @@ def navdp_step_xy():
     goal_data = json.loads(request.form.get('goal_data'))
     goal_x = np.array(goal_data['goal_x'])
     goal_y = np.array(goal_data['goal_y'])
-    goal = np.stack((goal_x,goal_y,np.ones_like(goal_x)),axis=1)
+    goal = np.stack((goal_x,goal_y,np.zeros_like(goal_x)),axis=1)
     batch_size = navdp_navigator.batch_size
     
     phase1_time = time.time()
@@ -212,7 +212,7 @@ def navdp_step_ip_mixgoal():
     point_goal_data = json.loads(request.form.get('goal_data'))
     point_goal_x = np.array(point_goal_data['goal_x'])
     point_goal_y = np.array(point_goal_data['goal_y'])
-    point_goal = np.stack((point_goal_x,point_goal_y,np.ones_like(point_goal_x)),axis=1)
+    point_goal = np.stack((point_goal_x,point_goal_y,np.zeros_like(point_goal_x)),axis=1)
     
     image_goal_file = request.files['image_goal']
     image_goal = Image.open(image_goal_file.stream)
