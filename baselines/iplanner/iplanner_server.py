@@ -59,7 +59,7 @@ def iplanner_step_pointgoal():
     goal_data = json.loads(request.form.get('goal_data'))
     goal_x = np.array(goal_data['goal_x'])
     goal_y = np.array(goal_data['goal_y'])
-    goal = np.stack((goal_x,goal_y,np.ones_like(goal_x)),axis=1)
+    goal = np.stack((goal_x,goal_y,np.zeros_like(goal_x)),axis=1)
     goal = process_goal(goal)
     batch_size = goal.shape[0]
     
